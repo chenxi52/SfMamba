@@ -132,18 +132,12 @@ def eval_accuracy_gpu(model, loader, flag=False, amp=False, **kwargs):
 
 def img_param_init(args):
     dataset = args.dataset
-    if dataset == 'PACS':
-        domains = ['art_painting', 'cartoon', 'photo', 'sketch']
-    elif dataset == 'VLCS':
-        domains = ['Caltech101', 'LabelMe', 'SUN09', 'VOC2007']
-    elif dataset == 'office-home':
+    if dataset == 'office-home':
         domains = ['Art', 'Clipart', 'Product', 'RealWorld']
     elif dataset == 'office':
         domains = ['amazon', 'dslr', 'webcam']
     elif dataset == 'VISDA-C':
         domains = ['train', 'validation']
-    elif dataset == 'terra_incognita':
-        domains = ['location_100', 'location_38', 'location_43', 'location_46']
     elif dataset == 'domainnet':
         domains = ["clipart", "infograph", "painting", "quickdraw", "real", "sketch"]
     elif dataset == 'domainnet126':
@@ -152,28 +146,19 @@ def img_param_init(args):
         print('No such dataset exists!')
     args.domains = domains
     args.img_dataset = {
-        'PACS': ['art_painting', 'cartoon', 'photo', 'sketch'], 
-        'VLCS': ['Caltech101', 'LabelMe', 'SUN09', 'VOC2007'], 
         'office-home': ['Art', 'Clipart', 'Product', 'RealWorld'], 
         'office': ['amazon', 'dslr', 'webcam'], 
         'VISDA-C': ['train', 'validation'], 
         'domainnet126': ['clipart', 'painting', 'real', 'sketch'],
-        'terra_incognita': ['location_100', 'location_38', 'location_43', 'location_46'], 
         'domainnet': ["clipart", "infograph", "painting", "quickdraw", "real", "sketch"]
     }
     args.input_shape = (3, 224, 224)
-    if args.dataset == 'PACS':
-        args.num_classes = 7
-    elif dataset == 'VLCS':
-        args.num_classes = 5
-    elif args.dataset == 'office-home':
+    if args.dataset == 'office-home':
         args.num_classes = 65
     elif args.dataset == 'office':
         args.num_classes = 31
     elif args.dataset == 'VISDA-C':
         args.num_classes = 12
-    elif args.dataset == 'terra_incognita':
-        args.num_classes = 10
     elif args.dataset == 'domainnet':
         args.num_classes = 345
     elif args.dataset == 'domainnet126':

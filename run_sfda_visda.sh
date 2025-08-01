@@ -27,8 +27,7 @@ for s in 0; do
         --data_path ${data_root}/VISDA-C/ --lr $lr \
         --output $out_dir --dataset VISDA-C --target_env $t  \
         --batch_size 32 --source_env $s --test_batch_size 16 \
-        --neck bn_relu --resume 1 \
         MODEL.SOURCE_DIR $source_dir TRAIN.EPOCHS $epoch \
-        TRAIN.WARMUP_EPOCHS 1 DATA.NUM_WORKERS 2 SEED $seed
+        TRAIN.WARMUP_EPOCHS 1
     done
 done

@@ -16,7 +16,6 @@ from utils.lr_scheduler import build_scheduler
 from utils.logger import create_logger
 from utils.utils import  NativeScalerWithGradNormCount
 import torch.nn as nn
-from timm.utils import ModelEma as ModelEma
 from utils.loss import myCriterion
 from datautil.getdataloader import get_tgt_img_dataloader
 from utils.dgutil import train_valid_target_eval_names_DA, img_param_init, eval_accuracy_gpu
@@ -27,7 +26,7 @@ from fvcore.nn.parameter_count import parameter_count as fvcore_parameter_count
 from torch.cuda.amp import autocast
 
 @torch.no_grad()
-def obtain_label(args, config, loader, model, not_cluster=False):
+def obtain_label(loader, model, not_cluster=False):
     start_test = True
     model.eval()
     num_steps = len(loader)
@@ -112,10 +111,6 @@ def parse_option():
     parser.add_argument('--test_batch_size', type=int, help="batch size for single GPU")
     parser.add_argument('--data_path', type=str, help='path to dataset')
     parser.add_argument('--zip', action='store_true', help='use zipped dataset instead of folder dataset')
-    parser.add_argument('--cache_mode', type=str, default='part', choices=['no', 'full', 'part'],
-                        help='no: no cache, '
-                             'full: cache all data, '
-                             'part: sharding the dataset into nonoverlapping pieces and only cache one piece')
     parser.add_argument('--pretrained',
                         help='pretrained weight from checkpoint, could be imagenet22k pretrained weight')
     parser.add_argument('--resume', type=str2bool, default=0, help='resume from checkpoint')
@@ -127,7 +122,7 @@ def parse_option():
     parser.add_argument('--throughput', action='store_true', help='Test throughput only')
     parser.add_argument('--optim', type=str, help='overwrite optimizer if provided, can be adamw/sgd.')
 
-    parser.add_argument('--dataset', type=str, default='PACS')
+    parser.add_argument('--dataset', type=str, default='office-home', choices=['office','office-home','VISDA-C','domainnet126'])
     parser.add_argument('--target_env', type=int, default=0)
     parser.add_argument('--split_style', type=str, default='strat')
     parser.add_argument('--lr', type=float, default=None)
@@ -316,7 +311,7 @@ def train_one_epoch(config, args, model, criterion, data_loader,
     end = time.time()
     train_minibatches_iterator = zip(*data_loader)
     if args.par_cls >0:
-        pseudo_label, temp = obtain_label(args, config, data_loader_val[0], model, 
+        pseudo_label, temp = obtain_label(data_loader_val[0], model, 
                                 not_cluster=(args.pseu_target!='cluster' and epoch==0)) 
     else: pseudo_label = None
 

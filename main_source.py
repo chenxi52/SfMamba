@@ -18,7 +18,6 @@ from utils.lr_scheduler import build_scheduler
 from utils.logger import create_logger
 from utils.utils import NativeScalerWithGradNormCount, load_pretrained_ema,load_checkpoint
 
-from timm.utils import ModelEma as ModelEma
 from datautil.getdataloader import get_img_dataloader
 from utils.dgutil import train_valid_target_eval_names, eval_accuracy, img_param_init
 from config import get_config
@@ -43,14 +42,10 @@ def parse_option():
     parser = argparse.ArgumentParser('training and evaluation script', add_help=False)
     parser.add_argument('--cfg', type=str, required=True, metavar="FILE", help='path to config file', )
     # easy config modification
-    parser.add_argument('--batch_size', type=int, help="batch size for single GPU")
+    parser.add_argument('--batch_size', type=int, default=64, help="batch size for single GPU")
     parser.add_argument('--test_batch_size', type=int, help="batch size for single GPU")
     parser.add_argument('--data_path', type=str, help='path to dataset')
     parser.add_argument('--zip', action='store_true', help='use zipped dataset instead of folder dataset')
-    parser.add_argument('--cache_mode', type=str, default='part', choices=['no', 'full', 'part'],
-                        help='no: no cache, '
-                             'full: cache all data, '
-                             'part: sharding the dataset into nonoverlapping pieces and only cache one piece')
     parser.add_argument('--pretrained', default='',
                         help='pretrained weight from checkpoint, could be imagenet22k pretrained weight')
     parser.add_argument('--resume', type=str2bool, default=False, help='resume from checkpoint')
@@ -68,7 +63,7 @@ def parse_option():
     parser.add_argument('--model_ema_force_cpu', type=str2bool, default=False, help='')
     parser.add_argument('--memory_limit_rate', type=float, default=-1, help='limitation of gpu memory use')
 
-    parser.add_argument('--dataset', type=str, default='PACS')
+    parser.add_argument('--dataset', type=str, default='office-home', choices=['office','office-home','VISDA-C','domainnet126'])
     parser.add_argument('--test_envs', type=int, nargs='+', default=0)
     parser.add_argument('--split_style', type=str, default='strat')
     parser.add_argument('--lr', type=float, default=None)

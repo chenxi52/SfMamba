@@ -1,5 +1,5 @@
 ############# train source ##############
-data_root=/users/cx_xchen/DATASETS/
+data_root=/your_dataroot/
 lr=3e-4
 
 # config_file=configs/vmambav2v_tiny_224.yaml 

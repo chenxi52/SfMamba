@@ -11,7 +11,6 @@ import os
 from math import inf
 import torch
 import torch.distributed as dist
-from timm.utils import ModelEma as ModelEma
 import sys
 
 def load_checkpoint(config, model, optimizer, lr_scheduler, loss_scaler, domain='target'):
@@ -36,7 +35,7 @@ def load_checkpoint(config, model, optimizer, lr_scheduler, loss_scaler, domain=
     torch.cuda.empty_cache()
 
 
-def load_pretrained_ema(config, model, logger, model_ema: ModelEma=None, load_ema_separately=False):
+def load_pretrained_ema(config, model, logger, model_ema=None, load_ema_separately=False):
     logger.info(f"==============> Loading weight {config.MODEL.PRETRAINED} for fine-tuning......")
     checkpoint = torch.load(config.MODEL.PRETRAINED, map_location='cpu')
 
@@ -68,7 +67,7 @@ def load_pretrained_ema(config, model, logger, model_ema: ModelEma=None, load_em
     torch.cuda.empty_cache()
 
 
-def save_checkpoint_ema(config, epoch, model, max_accuracy, optimizer, lr_scheduler, loss_scaler, logger, model_ema: ModelEma=None, max_accuracy_ema=None):
+def save_checkpoint_ema(config, epoch, model, max_accuracy, optimizer, lr_scheduler, loss_scaler, logger, model_ema=None, max_accuracy_ema=None):
     save_state = {'model': model.state_dict(),
                   'optimizer': optimizer.state_dict(),
                   'lr_scheduler': lr_scheduler.state_dict(),

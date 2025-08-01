@@ -16,7 +16,7 @@ _C.DATA.BATCH_SIZE = 32
 # Path to dataset, could be overwritten by command line argument
 _C.DATA.DATA_PATH = ''
 # Dataset name
-_C.DATA.DATASET = 'PACS'
+_C.DATA.DATASET = 'office'
 # Input image size
 _C.DATA.IMG_SIZE = 224
 # Interpolation to resize image (random, bilinear, bicubic)
@@ -24,17 +24,10 @@ _C.DATA.INTERPOLATION = 'bicubic'
 # Use zipped dataset instead of folder dataset
 # could be overwritten by command line argument
 _C.DATA.ZIP_MODE = False
-# Cache Data in Memory, could be overwritten by command line argument
-_C.DATA.CACHE_MODE = 'part'
 # Pin CPU memory in DataLoader for more efficient (sometimes) transfer to GPU.
 _C.DATA.PIN_MEMORY = True
 # Number of data loading threads
 _C.DATA.NUM_WORKERS = 8
-
-# [SimMIM] Mask patch size for MaskGenerator
-_C.DATA.MASK_PATCH_SIZE = 32
-# [SimMIM] Mask ratio for MaskGenerator
-_C.DATA.MASK_RATIO = 0.6
 
 # -----------------------------------------------------------------------------
 # Model settings
@@ -251,8 +244,6 @@ def update_config(config, args):
         config.DATA.DATA_PATH = args.data_path
     if _check_args('zip'):
         config.DATA.ZIP_MODE = True
-    if _check_args('cache_mode'):
-        config.DATA.CACHE_MODE = args.cache_mode
     if _check_args('pretrained'):
         config.MODEL.PRETRAINED = args.pretrained
     if _check_args('resume'):
