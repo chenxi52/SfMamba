@@ -2,15 +2,10 @@
 <div align="center">
 <h1>SfMmaba </h1>
 <h3>SfMamba: Efficient Source-Free Domain Adaptation via Selective Scan Modeling</h3>
-<h3> Anonymous submission: ID 7706
 </div>
 
 
 ## Overview
-
-<p align="center">
-  <img src="assets/abl_struc.png" alt="arch" width="50%">
-</p>
 
 * **SfMamba**
 <p align="center">
