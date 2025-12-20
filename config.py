@@ -198,7 +198,6 @@ _C.MODEL.SOURCE_F = ''
 _C.MODEL.SOURCE_C = ''
 _C.MODEL.STATE = ''
 _C.MODEL.SOURCE_DIR = 'None'
-_C.target_da = False
 _C.MODEL.EMBED_DIM = 768
 _C.MODEL.NECK = ''
 _C.MODEL.NECK_DEEP=2
@@ -206,8 +205,10 @@ _C.MODEL.VSSM.SSM_FORWARDTYPE_1D = 'v052d'
 _C.MODEL.NECK_RES = False
 _C.MODEL.VSSM.NECK_NORM_LAYER='LN2d'
 _C.TRAIN.BASE_D_LR = 1e-4
+_C.MODEL.TARGET_PATH=''
 _C.bg_ratio=0.2
-
+_C.alpha=0.25
+_C.target_da = False
 
 def _update_config_from_file(config, cfg_file):
     config.defrost()
@@ -327,6 +328,7 @@ def update_config(config, args):
         config.MODEL.SOURCE_F = os.path.join(config.MODEL.SOURCE_DIR,config.dataset,config.domains[args.source_env[0]],'source_F.pt') 
         config.MODEL.SOURCE_C = os.path.join(config.MODEL.SOURCE_DIR,config.dataset,config.domains[args.source_env[0]],'source_C.pt')
         config.MODEL.SOURCE_B = os.path.join(config.MODEL.SOURCE_DIR,config.dataset,config.domains[args.source_env[0]],'source_B.pt')
+        config.MODEL.TARGET_PATH = os.path.join(config.MODEL.TARGET_PATH,config.dataset, f'{config.domains[args.source_env[0]]}_{config.domains[config.target_env]}')
     config.freeze()
 
 
