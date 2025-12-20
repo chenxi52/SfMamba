@@ -42,7 +42,7 @@ Obtain the following datasets from their official sources:
 - Place them in the `utils/` folder
 - Configure `model_path` and `config` in the corresponding `run_sfda_*.sh` file
 
-### Training Pipeline
+## Training Pipeline
 
 We provide complete training scripts for both source model pre-training and target domain adaptation. The repository contains dedicated bash files for each benchmark dataset:
 
@@ -97,4 +97,11 @@ for pair in $st_cas; do
         TRAIN.WARMUP_EPOCHS 1 
 done
 
+```
+
+## Inference
+Examples for inference the model transfered from source domain 0 to target domain 1 in the Office-Home dataset with seed 1 is offered in below bash file.
+
+```bash
+bash inference.sh
 ```
