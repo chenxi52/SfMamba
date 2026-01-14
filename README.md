@@ -2,6 +2,7 @@
 <div align="center">
 <h1>SfMmaba </h1>
 <h3>SfMamba: Efficient Source-Free Domain Adaptation via Selective Scan Modeling</h3>
+<h3>https://arxiv.org/abs/2601.08608</h3>
 </div>
 
 
@@ -104,4 +105,16 @@ Examples for inference the model transfered from source domain 0 to target domai
 
 ```bash
 bash inference.sh
+```
+## Citation
+```
+@misc{chen2026sfmambaefficientsourcefreedomain,
+      title={SfMamba: Efficient Source-Free Domain Adaptation via Selective Scan Modeling}, 
+      author={Xi Chen and Hongxun Yao and Sicheng Zhao and Jiankun Zhu and Jing Jiang and Kui Jiang},
+      year={2026},
+      eprint={2601.08608},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2601.08608}, 
+}
 ```
